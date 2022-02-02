@@ -50,3 +50,11 @@ exports.login = (req, res) => {
     Sender.sendSuccessNoDataFound(req, res);
   }
 };
+exports.getAllUsers = (req, res) => {
+  let result = [];
+  for (let i = 0; i < Data.length; i++) {
+    let { password, ...restDetails } = Data[i];
+    result.push(restDetails);
+  }
+  Sender.sendSuccessData(req, res, { data: result });
+};
