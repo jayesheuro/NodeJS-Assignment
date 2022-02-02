@@ -32,7 +32,6 @@ exports.login = (req, res) => {
   users = Data.filter((user) => {
     return user.username === req.body.username;
   });
-  console.log(users);
   if (users.length > 0) {
     let code = users[0].password;
     bcrypt.compare(req.body.password, code, (err, success) => {
@@ -98,6 +97,34 @@ exports.deleteUserById = (req, res) => {
     });
     Data = users;
     Sender.sendSuccessData(req, res, { deletedUser: req.params.id });
+  } else {
+    Sender.sendSuccessNoDataFound(req, res);
+  }
+};
+
+exports.updateUserPassword = async (req, res) => {
+  pos = Data.map((user, index) => {
+    return user.username === req.params.id ? index : -1;
+  })[0];
+  if (pos !== -1) {
+    let fields = req.body;
+    for (var key in fields) {
+      if (key === "password") {
+        const salt = await bcrypt.genSalt(10);
+        bcrypt.hash(req.body.password, salt, (err, hash) => {
+          if (err) {
+            console.log(err);
+          }
+          if (hash) {
+            Data[pos].password = hash;
+            let { password, ...restDetails } = Data[pos];
+            Sender.sendSuccessData(req, res, {
+              updatedPasswordOf: restDetails,
+            });
+          }
+        });
+      }
+    }
   } else {
     Sender.sendSuccessNoDataFound(req, res);
   }
