@@ -84,7 +84,20 @@ exports.updateUserById = (req, res) => {
       }
     }
     let { password, ...restDetails } = users[0];
-    Sender.sendSuccessData(req, res, { updated: restDetails });
+    Sender.sendSuccessData(req, res, { updatedUser: restDetails });
+  } else {
+    Sender.sendSuccessNoDataFound(req, res);
+  }
+};
+
+exports.deleteUserById = (req, res) => {
+  pos = Data.findIndex((user) => user.username === req.params.id);
+  if (pos !== -1) {
+    users = Data.filter((user) => {
+      return user.username !== req.params.id;
+    });
+    Data = users;
+    Sender.sendSuccessData(req, res, { deletedUser: req.params.id });
   } else {
     Sender.sendSuccessNoDataFound(req, res);
   }
