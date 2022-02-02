@@ -71,3 +71,21 @@ exports.getUserById = (req, res) => {
     Sender.sendSuccessNoDataFound(req, res);
   }
 };
+
+exports.updateUserById = (req, res) => {
+  users = Data.filter((user, i) => {
+    return user.username === req.params.id;
+  });
+  if (users.length > 0) {
+    let fields = req.body;
+    for (var key in fields) {
+      if (key !== "password") {
+        users[0][key] = fields[key];
+      }
+    }
+    let { password, ...restDetails } = users[0];
+    Sender.sendSuccessData(req, res, { updated: restDetails });
+  } else {
+    Sender.sendSuccessNoDataFound(req, res);
+  }
+};
