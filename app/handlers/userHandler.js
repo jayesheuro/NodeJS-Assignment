@@ -50,6 +50,7 @@ exports.login = (req, res) => {
     Sender.sendSuccessNoDataFound(req, res);
   }
 };
+
 exports.getAllUsers = (req, res) => {
   let result = [];
   for (let i = 0; i < Data.length; i++) {
@@ -57,4 +58,16 @@ exports.getAllUsers = (req, res) => {
     result.push(restDetails);
   }
   Sender.sendSuccessData(req, res, { data: result });
+};
+
+exports.getUserById = (req, res) => {
+  users = Data.filter((user) => {
+    return user.username === req.params.id;
+  });
+  if (users.length > 0) {
+    let { password, ...restDetails } = users[0];
+    Sender.sendSuccessData(req, res, { data: restDetails });
+  } else {
+    Sender.sendSuccessNoDataFound(req, res);
+  }
 };
