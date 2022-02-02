@@ -1,0 +1,19 @@
+{
+  "name": "nodejs-assignment",
+  "version": "1.0.0",
+  "description": "This is Nodejs assignment of J2J batch, Quantiphi-FWE-SD. This has been created by Jayesh Singh.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jayesheuro/NodeJS-Assignment.git"
+  },
+  "author": "Jayesh Singh",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jayesheuro/NodeJS-Assignment/issues"
+  },
+  "homepage": "https://github.com/jayesheuro/NodeJS-Assignment#readme"
+}
